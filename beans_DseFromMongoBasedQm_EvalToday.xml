@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="
+			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+			http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd">
+
+	<import resource="beans_MongoBasedQueryManager.xml"/>
+	
+ 	<bean id="evalDate" class="java.util.GregorianCalendar">
+	</bean> 	 
+ 
+	<bean id="vanBlackEuropeanModel" class="com.billybyte.dse.models.vanilla.VanOptBlackEuropean" > 
+		<constructor-arg>
+			<ref local="evalDate"/>
+		</constructor-arg>
+		<constructor-arg>
+			<ref bean="volDiot"/>
+		</constructor-arg>
+	</bean> 
+ 
+	<bean id="vanBawModel" class="com.billybyte.dse.models.vanilla.VanOptBawAmerican" > 
+		<constructor-arg>
+			<ref local="evalDate"/>
+		</constructor-arg>
+		<constructor-arg>
+			<ref bean="volDiot"/>
+		</constructor-arg>
+	</bean> 
+
+	<bean id="vanUnderlyingModel" class="com.billybyte.dse.models.vanilla.VanOptUnderlying" > 
+		<constructor-arg>
+			<ref local="evalDate"/>
+		</constructor-arg>
+		<constructor-arg>
+			<ref bean="volDiot"/>
+		</constructor-arg>
+	</bean> 
+
+
+	<bean id="spreadCsoModel" class="com.billybyte.dse.models.spread.CsoModel" > 
+		<constructor-arg>
+			<ref local="evalDate"/>
+		</constructor-arg>
+	</bean> 
+
+	<util:map id="modelMap">
+			<entry key="((\.OPT\.)|(\.FOP\.))" value-ref="vanBlackEuropeanModel"/>
+			<entry key="((\.FUT\.)|(\.STK\.))" value-ref="vanUnderlyingModel"/>
+			<entry key="((G[234567])|(G(3B)|(4X)|(6B)))\.FOP\.NYMEX" value-ref="spreadCsoModel"/>
+	</util:map>
+
+	<bean id="regexModelQuery" class="com.billybyte.queries.QueryFromRegexPattern">
+		<constructor-arg>
+			<ref bean="modelMap"/>
+		</constructor-arg>
+	</bean>
+	
+	<bean id="dse" class="com.billybyte.dse.DerivativeSetEngine">
+		<constructor-arg>
+			<ref bean="queryManager"/>
+		</constructor-arg>
+		<constructor-arg>
+			<ref bean="sdQuery"/>
+		</constructor-arg>
+		<constructor-arg>
+			<ref local="evalDate"/>
+		</constructor-arg>
+		<constructor-arg>
+			<ref local="regexModelQuery"/>
+		</constructor-arg>
+	</bean>
+	
+	
+</beans>

@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="
+			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+			http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd">
+
+
+	<bean id="mongoIp" class="java.lang.String">
+		<constructor-arg type="java.lang.String" value="127.0.0.1" />
+	</bean>
+<!--  
+	<bean id="impliedCSOCorrelationsMap" class="java.lang.String">
+		<constructor-arg type="java.lang.String" value="../DerivativeSetEngine/bin/com/billybyte/derivativesetengine/run/impliedCSOCorrelationsMap.csv" />
+	</bean>
+-->
+		
+	<bean id="mongoSettle" class="com.billybyte.queries.SettleQueryFromMongo">
+		<constructor-arg>
+			<ref local="mongoIp"/>
+		</constructor-arg>
+		<constructor-arg type="java.lang.Integer" value="27017" />
+		<constructor-arg>
+			<null/>
+		</constructor-arg>
+	</bean>
+	
+	<bean id="settleBdQuery" class="com.billybyte.dse.queries.SettleToBigDecSetQuery">
+		<constructor-arg>
+			<ref local="mongoSettle"/> 
+		</constructor-arg>
+	</bean>
+	
+
+
+
+	<bean id="sdQuery" class="com.billybyte.marketdata.SecDefQueryAllMarkets"/>
+	
+<!--  
+	<bean id="volSurfQuery" class="com.billybyte.marketdata.volsurface.VolSurfaceQueryFromBdVolQuery">
+		<constructor-arg>
+			<ref local="volQuery"/> 
+		</constructor-arg>
+	</bean>
+-->	
+
+
+	<bean id="mongoCsoImpliedDb" class="com.billybyte.mongo.MongoXml">
+		<constructor-arg>
+			<ref local="mongoIp"/>
+		</constructor-arg>
+		<constructor-arg type="java.lang.Integer" value="27017" />
+		<constructor-arg type="java.lang.String" value="impliedCorrelDb" />
+		<constructor-arg type="java.lang.String" value="impliedCorrelColl" />
+	</bean>
+	<bean id="impliedCsoCorrQuery" class="com.billybyte.dse.queries.ImpliedCsoCorrelationSetQuery">
+		<constructor-arg>
+			<ref local="mongoCsoImpliedDb"/>
+		</constructor-arg>
+	</bean>
+    
+	<bean id="impliedCsoCorrDseInputQuery" class="com.billybyte.dse.queries.ImpliedCsoCorrelationDseInputQuery">
+		<constructor-arg>
+			<ref local="impliedCsoCorrQuery"/>
+		</constructor-arg>
+	</bean>
+
+	<bean id="atmQuery" class="com.billybyte.dse.queries.SettleToBigDecSetQuery">
+		<constructor-arg>
+			<ref local="mongoSettle"/> 
+		</constructor-arg>
+	</bean>
+
+	<bean id="volQuery" class="com.billybyte.dse.queries.MongoXmlCqrSetQuery">
+		<constructor-arg>
+			<ref local="mongoIp"/>
+		</constructor-arg>
+		<constructor-arg type="java.lang.Integer" value="27017" />
+		<constructor-arg type="java.lang.String" value="ImpliedVolDb" />
+		<constructor-arg type="java.lang.String" value="ImpliedVolColl" />
+		<constructor-arg>
+			<null/>
+		</constructor-arg>
+	</bean>
+
+	<!--
+	<bean id="treasuryClassBean" class="java.lang.Class" factory-method="forName">
+  		<constructor-arg value="com.billybyte.commonlibs.testcases.dse.TestQueryManager"/>
+	</bean>
+	  -->
+	<bean id="rateQuery" class="com.billybyte.dse.queries.TreasuryRateQueryFromTreasuryRateSingle">
+		<constructor-arg>
+			<ref local="sdQuery"/> 
+		</constructor-arg>
+		<constructor-arg type="java.lang.String" value="treasuryMap.xml" />
+		<constructor-arg>
+			<null/>
+<!-- 		<ref local="treasuryClassBean"/>  -->	 
+		</constructor-arg>
+	</bean>
+
+
+	<bean id="divQuery" class="com.billybyte.dse.queries.TreasuryRateQueryFromTreasuryRateSingle">
+		<constructor-arg>
+			<ref local="sdQuery"/> 
+		</constructor-arg>
+		<constructor-arg type="java.lang.String" value="treasuryMap.xml" />
+		<constructor-arg>
+			<null/>
+<!-- 		<ref local="treasuryClassBean"/>  -->	 
+		</constructor-arg>
+	</bean>
+
+	<bean id="dteQuery" class="com.billybyte.dse.queries.DteDseInputQuery" > 
+		<constructor-arg>
+			<ref local="sdQuery"/>
+		</constructor-arg>
+	</bean> 
+
+	<bean id="dteFromSettleQuery" class="com.billybyte.dse.queries.DteFromSettlementDseInputQuery" > 
+		<constructor-arg>
+			<ref local="sdQuery"/>
+		</constructor-arg>
+		<constructor-arg>
+			<ref local="mongoSettle"/>
+		</constructor-arg>
+	</bean> 
+
+	<bean id="cpQuery" class="com.billybyte.dse.queries.CallPutInputQuery" > 
+		<constructor-arg>
+			<ref local="sdQuery"/>
+		</constructor-arg>
+	</bean> 
+
+	<bean id="strikeQuery" class="com.billybyte.dse.queries.StrikeDseInputQuery" > 
+		<constructor-arg>
+			<ref local="sdQuery"/>
+		</constructor-arg>
+	</bean> 
+
+	<bean id="corrQuery" class="com.billybyte.dse.queries.CorrelationSetQueryFromMongoCmcDiffMap">
+		<constructor-arg>
+			<ref local="mongoIp"/>
+		</constructor-arg>
+		<constructor-arg type="java.lang.Integer" value="27017" />
+		<constructor-arg type="java.lang.String" value="stkCorrXml" />
+		<constructor-arg type="java.lang.String" value="correls" />
+	</bean>
+  
+	
+	<bean id="corrPairQuery" class="com.billybyte.dse.queries.CorrelationSetQueryFromMongoCmcDiffMapUsingPairStrings">
+		<constructor-arg>
+			<ref local="mongoIp"/>
+		</constructor-arg>
+		<constructor-arg type="java.lang.Integer" value="27017" />
+		<constructor-arg type="java.lang.String" value="stkCorrXml" />
+		<constructor-arg type="java.lang.String" value="correls" />
+	</bean>
+	
+	<bean id="settlePriceQuery" class="com.billybyte.dse.queries.SettlementDseInputQuery" > 
+		<constructor-arg>
+			<ref local="mongoSettle"/>
+		</constructor-arg>
+	</bean> 
+	
+
+	<bean id="atmDiot" class="com.billybyte.dse.inputs.diotypes.AtmDiot" > 
+	</bean> 
+	<bean id="volDiot" class="com.billybyte.dse.inputs.diotypes.VolDiot" > 
+	</bean> 
+	<bean id="strikeDiot" class="com.billybyte.dse.inputs.diotypes.StrikeDiot" > 
+	</bean> 
+	<bean id="divDiot" class="com.billybyte.dse.inputs.diotypes.DivDiot" > 
+	</bean> 
+	<bean id="dteDiot" class="com.billybyte.dse.inputs.diotypes.DteSimpleDiot" > 
+	</bean> 
+	<bean id="dteFromSettleDiot" class="com.billybyte.dse.inputs.diotypes.DteFromSettleDiot" > 
+	</bean> 
+	<bean id="rateDiot" class="com.billybyte.dse.inputs.diotypes.RateDiot" > 
+	</bean> 
+	<bean id="cpDiot" class="com.billybyte.dse.inputs.diotypes.CallPutDiot" > 
+	</bean> 
+	<bean id="corrDiot" class="com.billybyte.dse.inputs.diotypes.CorrDiot" > 
+	</bean> 
+	<bean id="settlePriceDiot" class="com.billybyte.dse.inputs.diotypes.SettlePriceDiot" > 
+	</bean> 
+	<bean id="impliedCorrDiot" class="com.billybyte.dse.inputs.diotypes.ImpliedCorr" > 
+	</bean> 
+
+	<util:map id="queryMap">
+			<entry key-ref="atmDiot" value-ref="atmQuery"/>
+			<entry key-ref="volDiot" value-ref="volQuery"/>
+			<entry key-ref="strikeDiot" value-ref="strikeQuery"/>
+			<entry key-ref="rateDiot" value-ref="rateQuery"/>
+			<entry key-ref="divDiot" value-ref="divQuery"/>
+			<entry key-ref="dteDiot" value-ref="dteQuery"/>
+			<entry key-ref="dteFromSettleDiot" value-ref="dteFromSettleQuery"/>
+			<entry key-ref="cpDiot" value-ref="cpQuery"/>
+			<entry key-ref="corrDiot" value-ref="corrQuery"/>
+			<entry key-ref="settlePriceDiot" value-ref="settlePriceQuery"/>
+			<entry key-ref="impliedCorrDiot" value-ref="impliedCsoCorrDseInputQuery"/>
+	</util:map>
+
+ 
+	<bean id="baseUnderlyingQuery" class="com.billybyte.dse.queries.BaseUnderlyingSecDefQuery" > 
+		<constructor-arg>
+			<ref local="sdQuery"/>
+		</constructor-arg>
+	</bean> 
+
+	<bean id="calSwapQuery" class="com.billybyte.marketdata.futures.apos.CalSwapUnderlyingSecDefQuery" > 
+	</bean> 
+
+	<bean id="csoQuery" class="com.billybyte.marketdata.futures.csos.NymexCsoSecDefListQuery" > 
+		<constructor-arg>
+			<ref local="sdQuery"/>
+		</constructor-arg>
+	</bean> 
+
+	<util:map id="secDefQueryMap">
+			<entry key="((FOP)|(FUT)|(OPT)|(STK))" value-ref="baseUnderlyingQuery"/>
+			<entry key="((CSX)|(AAO)|(AOX))\.((FOP)|(FUT))" value-ref="calSwapQuery"/>
+			<entry key="((G[234567])|(G(3B)|(4X)|(6B)))\.FOP\.NYMEX" value-ref="csoQuery"/>
+	</util:map>
+
+	<bean id="queryManager" class="com.billybyte.dse.inputs.QueryManager" > 
+		<constructor-arg>
+			<ref local="queryMap"/>
+		</constructor-arg>
+		<constructor-arg>
+			<ref local="secDefQueryMap"/>
+		</constructor-arg>
+	</bean> 
+    
+  
+</beans>
