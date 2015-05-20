@@ -16,7 +16,7 @@ import com.billybyte.ui.messagerboxes.MessageBox;
 public class DseRunUtils {
 	static String getStringParam(Map<String, String> argPairs,String param){
 		String ret = argPairs.get(param);
-		Utils.prtObMess(RunCsoImpliedCorrelationGenerator.class, param+"="+ret);
+//		Utils.prtObMess(RunCsoImpliedCorrelationGenerator.class, param+"="+ret);
 		return ret;
 	}
 	

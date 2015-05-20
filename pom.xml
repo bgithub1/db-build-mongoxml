@@ -36,11 +36,6 @@
 		<artifactId>common-libs</artifactId>
 		<version>1.0</version>
 	</dependency>
- 	<dependency>
-		<groupId>com.billybyte</groupId>
-		<artifactId>common-libs</artifactId>
-		<version>1.0</version>
-	</dependency>
 	<dependency>
 	    <groupId>org.jongo</groupId>
 	    <artifactId>jongo</artifactId>

@@ -72,7 +72,8 @@ public class RunCreateUnderlyingAtmImpliedVolMongoDb {
 	public static void main(String[] args) {
 		// get all command line params
 		ParamArgs pargs = new ParamArgs(args);
-		
+		Utils.prtObErrMess(RunCreateUnderlyingAtmImpliedVolMongoDb.class, pargs.toString());
+
 		// if a regex list was provided, use it
 		String[] regexStrings = defaultRegexStrings;
 		if(pargs.regexStringList!=null){
@@ -189,6 +190,7 @@ public class RunCreateUnderlyingAtmImpliedVolMongoDb {
 	
 	static final class ParamArgs {
 		final MongoXml<BigDecimal> mongoImpliedVolDb;
+		final String deBeansPath;
 		final DerivativeSetEngine de; 
 		final Boolean showMsgBox;
 		final Integer timeoutValue ;
@@ -205,6 +207,7 @@ public class RunCreateUnderlyingAtmImpliedVolMongoDb {
 					Utils.getArgPairsSeparatedByChar(args, "=");
 			Map<String,Object> beansMap = 
 					DseRunUtils.getBeans(argPairs);
+			this.deBeansPath = argPairs.get("dseXmlName");
 			this.de = DseRunUtils.getDse(beansMap);
 			//*************** OPEN OUTPUT MONGO DATABASE ********************************
 			this.mongoImpliedVolDb = DseRunUtils.getMongoImpliedVolDb(argPairs);
@@ -234,5 +237,19 @@ public class RunCreateUnderlyingAtmImpliedVolMongoDb {
 			//*************** END OF GET ALL OTHER RUNTIME PARAMETERS ********************************
 			
 		}
+
+		@Override
+		public String toString() {
+			return "ParamArgs [mongoImpliedVolDb=" + mongoImpliedVolDb
+					+ ", showMsgBox=" + showMsgBox + ", timeoutValue="
+					+ timeoutValue + ", timeUnitType=" + timeUnitType
+					+ ", maxPercDiffBtwSettleAndOpStrikeToAllow="
+					+ maxPercDiffBtwSettleAndOpStrikeToAllow
+					+ ", updateVolsForUndersWithNoOpts="
+					+ updateVolsForUndersWithNoOpts
+					+ ", processNamesThatAlreadyHaveVols="
+					+ processNamesThatAlreadyHaveVols + "]";
+		}
+		
 	}
 }

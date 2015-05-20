@@ -88,7 +88,7 @@ public class RunCreateOptionsImpliedVolMongoDb {
 
 		
 		ParamArgs pargs = new ParamArgs(args);
-		
+		Utils.prtObErrMess(RunCreateOptionsImpliedVolMongoDb.class, pargs.toString());
 		// if a regex list was provided, use it
 		String[] regexStrings = defaultRegexStrings;
 		if(pargs.regexStringList!=null){

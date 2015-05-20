@@ -52,16 +52,11 @@ public class RunCsoImpliedCorrelationGenerator {
 	 *
 	 */
 	public static void main(String[] args) {
-		Utils.prtObMess(RunCsoImpliedCorrelationGenerator.class, " args examples:");
-		Utils.prtObMess(RunCsoImpliedCorrelationGenerator.class, "dseXmlName=myDseBeans ");
-		Utils.prtObMess(RunCsoImpliedCorrelationGenerator.class, "ipOfMongo=127.0.0.1 ");
-		Utils.prtObMess(RunCsoImpliedCorrelationGenerator.class, "portOfMongo=27017 ");
-		Utils.prtObMess(RunCsoImpliedCorrelationGenerator.class, "showMsgBox=true");
-		Utils.prtObMess(RunCsoImpliedCorrelationGenerator.class, "remove=true");
-		Utils.prtObMess(RunCsoImpliedCorrelationGenerator.class, "csoRegexKey=((G[234567])|G((3B)|(4X)|(6B))).FOP");
 		//showMsgBox
 		Map<String, String> argPairs = 
 				Utils.getArgPairsSeparatedByChar(args, "=");
+
+		
 		String dseXmlName = argPairs.get("dseXmlName");
 		
 		
@@ -85,6 +80,16 @@ public class RunCsoImpliedCorrelationGenerator {
 		String ipOfMongo = argPairs.get("ipOfMongo");
 		Integer portOfMongo  = new Integer(argPairs.get("portOfMongo"));
 		String csoRegexKey =  argPairs.get("csoRegexKey");
+		
+		// Print out args
+		Utils.prtObMess(RunCsoImpliedCorrelationGenerator.class, "dseXmlName="+dseXmlName);
+		Utils.prtObMess(RunCsoImpliedCorrelationGenerator.class, "ipOfMongo="+ipOfMongo);
+		Utils.prtObMess(RunCsoImpliedCorrelationGenerator.class, "portOfMongo="+portOfMongo);
+		Utils.prtObMess(RunCsoImpliedCorrelationGenerator.class, "showMsgBox="+showMsgBox);
+		Utils.prtObMess(RunCsoImpliedCorrelationGenerator.class, "remove="+remove);
+		Utils.prtObMess(RunCsoImpliedCorrelationGenerator.class, "csoRegexKey="+csoRegexKey);
+		
+		
 		
 		SettleDseInputQueryFromMongoRegex mongoRegex = 
 				new  SettleDseInputQueryFromMongoRegex(ipOfMongo, portOfMongo, csoRegexKey);
