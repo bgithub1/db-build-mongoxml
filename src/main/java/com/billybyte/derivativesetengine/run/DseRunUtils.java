@@ -9,9 +9,12 @@ import java.util.concurrent.TimeUnit;
 import com.billybyte.commonstaticmethods.CollectionsStaticMethods;
 import com.billybyte.commonstaticmethods.Utils;
 import com.billybyte.dse.DerivativeSetEngine;
+import com.billybyte.dse.inputs.InBlk;
 import com.billybyte.mongo.MongoDatabaseNames;
 import com.billybyte.mongo.MongoXml;
+import com.billybyte.queries.ComplexQueryResult;
 import com.billybyte.ui.messagerboxes.MessageBox;
+import com.thoughtworks.xstream.XStream;
 
 public class DseRunUtils {
 	static String getStringParam(Map<String, String> argPairs,String param){
@@ -218,5 +221,8 @@ public class DseRunUtils {
 
 	}
 	
-		
+	Map<String, ComplexQueryResult<InBlk>> getInBlkCarMapFromString(String xml){
+		XStream xs = new XStream();
+		return (Map<String, ComplexQueryResult<InBlk>>)xs.fromXML(xml);
+	}
 }
