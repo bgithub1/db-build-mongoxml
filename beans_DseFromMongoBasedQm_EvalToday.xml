@@ -10,6 +10,13 @@
 	
  	<bean id="evalDate" class="java.util.GregorianCalendar">
 	</bean> 	 
+	
+	<bean id="csoRegexKey2" class="java.lang.String">
+		<constructor-arg>
+			<ref bean="csoRegexKey"/>
+		</constructor-arg>
+	</bean>
+	
  
 	<bean id="vanBlackEuropeanModel" class="com.billybyte.dse.models.vanilla.VanOptBlackEuropean" > 
 		<constructor-arg>
@@ -48,7 +55,8 @@
 	<util:map id="modelMap">
 			<entry key="((\.OPT\.)|(\.FOP\.))" value-ref="vanBlackEuropeanModel"/>
 			<entry key="((\.FUT\.)|(\.STK\.))" value-ref="vanUnderlyingModel"/>
-			<entry key="((G[234567])|(G(3B)|(4X)|(6B)))\.FOP\.NYMEX" value-ref="spreadCsoModel"/>
+			<!-- <entry key="((G[234567])|(G(3B)|(4X)|(6B))|(W[ABCMZ]))\.FOP\.NYMEX" value-ref="spreadCsoModel"/>  -->
+			<entry key-ref="csoRegexKey2" value-ref="spreadCsoModel"/>
 	</util:map>
 
 	<bean id="regexModelQuery" class="com.billybyte.queries.QueryFromRegexPattern">

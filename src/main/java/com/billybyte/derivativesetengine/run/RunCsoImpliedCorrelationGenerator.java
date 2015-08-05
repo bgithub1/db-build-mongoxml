@@ -38,7 +38,7 @@ public class RunCsoImpliedCorrelationGenerator {
 	/**
 	 * 
 	 * @param args
-		"dseXmlName=beans_DseFromMongoBasedQm_EvalToday.xmlbeans_DseFromMongoBasedQm_EvalToday.xmlbeans_DseFromMongoBasedQm_EvalToday.xml"  
+		"dseXmlName=beans_DseFromMongoBasedQm_EvalToday.xml"   
 		"ipOfMongo=127.0.0.1" 
 		"portOfMongo=27017" 
 		"showMsgBox=true" 
