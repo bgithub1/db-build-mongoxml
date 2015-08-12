@@ -2,24 +2,17 @@ package com.billybyte.derivativesetengine.run;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-import com.billybyte.commoninterfaces.SettlementDataInterface;
-import com.billybyte.commonstaticmethods.Dates;
 import com.billybyte.commonstaticmethods.Utils;
-import com.billybyte.marketdata.SettlementDataImmute;
-import com.billybyte.mongo.MongoDatabaseNames;
 import com.billybyte.mongo.MongoXml;
 import com.billybyte.mongo.QueryFromMongoXml;
-import com.billybyte.queries.ComplexQueryResult;
-import com.billybyte.queries.SettleQueryFromMongo;
 
 public abstract class AbstractBuildInterpolatedValues<T> {
 	public abstract BigDecimal getBigDecimalValueFromT(T t);
@@ -116,7 +109,7 @@ public abstract class AbstractBuildInterpolatedValues<T> {
 				BigDecimal value2 = settleList[j];
 				BigDecimal value1 = settleList[currentHeadIndex];
 				BigDecimal divisor = new BigDecimal(j).subtract(new BigDecimal(currentHeadIndex));
-				currentSingleUnitSpread = (value2.subtract(value1)).divide(divisor);
+				currentSingleUnitSpread = (value2.subtract(value1)).divide(divisor,RoundingMode.HALF_EVEN);
 				for(int k = currentHeadIndex+1;k<=j;k++){
 					settleList[k] = settleList[k-1].add(currentSingleUnitSpread);
 				}
