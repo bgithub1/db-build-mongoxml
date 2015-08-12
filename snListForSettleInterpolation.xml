@@ -1,0 +1,32 @@
+<list>
+  <java.util.Arrays_-ArrayList>
+    <a class="string-array">
+      <string>CL.FUT.NYMEX.USD.201611</string>
+      <string>CL.FUT.NYMEX.USD.201612</string>
+      <string>CL.FUT.NYMEX.USD.201701</string>
+      <string>CL.FUT.NYMEX.USD.201702</string>
+      <string>CL.FUT.NYMEX.USD.201703</string>
+      <string>CL.FUT.NYMEX.USD.201704</string>
+      <string>CL.FUT.NYMEX.USD.201705</string>
+      <string>CL.FUT.NYMEX.USD.201706</string>
+      <string>CL.FUT.NYMEX.USD.201707</string>
+      <string>CL.FUT.NYMEX.USD.201708</string>
+      <string>CL.FUT.NYMEX.USD.201709</string>
+      <string>CL.FUT.NYMEX.USD.201710</string>
+      <string>CL.FUT.NYMEX.USD.201711</string>
+      <string>CL.FUT.NYMEX.USD.201712</string>
+      <string>CL.FUT.NYMEX.USD.201801</string>
+      <string>CL.FUT.NYMEX.USD.201802</string>
+      <string>CL.FUT.NYMEX.USD.201803</string>
+      <string>CL.FUT.NYMEX.USD.201804</string>
+      <string>CL.FUT.NYMEX.USD.201805</string>
+      <string>CL.FUT.NYMEX.USD.201806</string>
+      <string>CL.FUT.NYMEX.USD.201807</string>
+      <string>CL.FUT.NYMEX.USD.201808</string>
+      <string>CL.FUT.NYMEX.USD.201809</string>
+      <string>CL.FUT.NYMEX.USD.201810</string>
+      <string>CL.FUT.NYMEX.USD.201811</string>
+      <string>CL.FUT.NYMEX.USD.201812</string>
+    </a>
+  </java.util.Arrays_-ArrayList>
+</list>
