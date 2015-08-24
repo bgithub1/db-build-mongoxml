@@ -283,11 +283,97 @@
 		</constructor-arg>
 	</bean> 
 
+<!-- below are UnderlyingQueries for options that have serial months -->
+
+		<!-- MAR, JUN, SEP, DEC -->
+		<util:list id="hmuzMapper">
+		  <value>3</value>
+		  <value>3</value>
+		  <value>3</value>
+		  <value>6</value>
+		  <value>6</value>
+		  <value>6</value>
+		  <value>9</value>
+		  <value>9</value>
+		  <value>9</value>
+		  <value>12</value>
+		  <value>12</value>
+		  <value>12</value>
+		</util:list>
+
+	<bean id="hmuzUnderQuery" class="com.billybyte.dse.queries.SerialOptUnderQuery" > 
+		<constructor-arg>
+			<ref local="sdQuery"/>
+		</constructor-arg>
+		<constructor-arg>
+			<ref local="hmuzMapper"/>
+		</constructor-arg>
+	</bean> 
+		
+	
+		<!-- SB -->
+		<util:list id="hknvMapper">
+		  <value>3</value>
+		  <value>3</value>
+		  <value>3</value>
+		  <value>5</value>
+		  <value>5</value>
+		  <value>7</value>
+		  <value>7</value>
+		  <value>10</value>
+		  <value>10</value>
+		  <value>10</value>
+		  <value>3</value>
+		  <value>3</value>
+		</util:list>
+
+	<bean id="sbUnderQuery" class="com.billybyte.dse.queries.SerialOptUnderQuery" > 
+		<constructor-arg>
+			<ref local="sdQuery"/>
+		</constructor-arg>
+		<constructor-arg>
+			<ref local="hknvMapper"/>
+		</constructor-arg>
+	</bean> 
+
+		<!-- OJ -->
+		<util:list id="fhknuxMapper">
+		  <value>1</value>
+		  <value>3</value>
+		  <value>3</value>
+		  <value>5</value>
+		  <value>5</value>
+		  <value>7</value>
+		  <value>7</value>
+		  <value>9</value>
+		  <value>9</value>
+		  <value>11</value>
+		  <value>11</value>
+		  <value>1</value>
+		</util:list>
+
+	<bean id="ojUnderQuery" class="com.billybyte.dse.queries.SerialOptUnderQuery" > 
+		<constructor-arg>
+			<ref local="sdQuery"/>
+		</constructor-arg>
+		<constructor-arg>
+			<ref local="fhknuxMapper"/>
+		</constructor-arg>
+	</bean> 
+
+	
 	<util:map id="secDefQueryMap">
 			<entry key="((FOP)|(FUT)|(OPT)|(STK))" value-ref="baseUnderlyingQuery"/>
 			<entry key="((CSX)|(AAO)|(AOX))\.((FOP)|(FUT))" value-ref="calSwapQuery"/>
 			<!-- <entry key="((G[234567])|(G(3B)|(4X)|(6B))|(W[ABCMZ]))\.FOP\.NYMEX" value-ref="csoQuery"/>  -->
-			<entry key-ref="csoRegexKey" value-ref="csoQuery"/>
+			<entry key-ref="csoRegexKey" value-ref="csoQuery"/>			
+			<entry key="^((ES)|(GE)|(NQ))\.FOP\.GLOBEX\.USD\." value-ref="hmuzUnderQuery"/>
+			<entry key="^((DX)|(TF)|(RF))\.FOP\.NYBOT\.USD\." value-ref="hmuzUnderQuery"/>
+			<entry key="^((OZN)|(OZB)|(OZF)|(OUB)|(OZD)|(OZT)|(YM))\.FOP\.ECBOT\.USD\." value-ref="hmuzUnderQuery"/>
+			<entry key="^PAO\.FOP\.NYMEX\.USD\." value-ref="hmuzUnderQuery"/>
+			<entry key="^((6A)|(6B)|(6C)|(6E)|(6J)|(6L)|(6M)|(6N)|(6S)|(6Z)|(ND)|(SP))\.FOP\.CME\.USD\." value-ref="hmuzUnderQuery"/>
+			<entry key="SB\.FOP\.NYBOT" value-ref="sbUnderQuery"/>
+			<entry key="OJ\.FOP\.NYBOT" value-ref="ojUnderQuery"/>
 	</util:map>
 
 	<bean id="queryManager" class="com.billybyte.dse.inputs.QueryManager" > 
