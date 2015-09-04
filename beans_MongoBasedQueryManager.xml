@@ -361,6 +361,30 @@
 		</constructor-arg>
 	</bean> 
 
+		<util:list id="gjmqvzMapper">
+		  <value>2</value>
+		  <value>2</value>
+		  <value>4</value>
+		  <value>4</value>
+		  <value>6</value>
+		  <value>6</value>
+		  <value>8</value>
+		  <value>8</value>
+		  <value>10</value>
+		  <value>10</value>
+		  <value>12</value>
+		  <value>12</value>
+		</util:list>
+
+	<bean id="ogUnderQuery" class="com.billybyte.dse.queries.SerialOptUnderQuery" > 
+		<constructor-arg>
+			<ref local="sdQuery"/>
+		</constructor-arg>
+		<constructor-arg>
+			<ref local="gjmqvzMapper"/>
+		</constructor-arg>
+	</bean> 
+
 	
 	<util:map id="secDefQueryMap">
 			<entry key="((FOP)|(FUT)|(OPT)|(STK))" value-ref="baseUnderlyingQuery"/>
@@ -374,6 +398,7 @@
 			<entry key="^((6A)|(6B)|(6C)|(6E)|(6J)|(6L)|(6M)|(6N)|(6S)|(6Z)|(ND)|(SP))\.FOP\.CME\.USD\." value-ref="hmuzUnderQuery"/>
 			<entry key="SB\.FOP\.NYBOT" value-ref="sbUnderQuery"/>
 			<entry key="OJ\.FOP\.NYBOT" value-ref="ojUnderQuery"/>
+			<entry key="OG\.FOP\.COMEX" value-ref="ogUnderQuery"/>
 	</util:map>
 
 	<bean id="queryManager" class="com.billybyte.dse.inputs.QueryManager" > 
