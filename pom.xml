@@ -49,21 +49,14 @@
       <scope>test</scope>
     </dependency>
     
- <!--  
- 	<dependency>
-		<groupId>com.billybyte</groupId>
-		<artifactId>collectionsstaticmethods</artifactId>
-		<version>1.0</version>
-	</dependency>
-	
- -->   
+  
  		<dependency>
 		    <groupId>com.github.bgithub1</groupId>
 		    <artifactId>common-libs</artifactId>
-		    <version>0.1.7</version>
+		    <version>0.1.8</version>
 		</dependency>
-  
 <!--  
+
 		<dependency>
 			<groupId>com.billybyte</groupId>
 		    <artifactId>common-libs</artifactId>
